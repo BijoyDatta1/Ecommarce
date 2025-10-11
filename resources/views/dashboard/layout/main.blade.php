@@ -11,8 +11,18 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dashboardAsset/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('dashboardAsset/css/custom.css')}}">
+
+    {{--    helper css--}}
+    <link rel="stylesheet" href="{{asset('helperAsset/loader.css')}}">
+    <link rel="stylesheet" href="{{asset('helperAsset/toastyfy.min.css')}}">
+
 </head>
 <body class="hold-transition sidebar-mini">
+
+<!-- Fullscreen Loader -->
+<div id="loader-wrapper" class="loader-wrapper" style="display: none;">
+    <span class="loader"></span>
+</div>
 <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Navbar -->
@@ -82,6 +92,11 @@
 <script src="{{asset('dashboardAsset/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dashboardAsset/js/demo.js')}}"></script>
+
+{{--helper Js--}}
+<script src="{{asset('helperAsset/axios.min.js')}}"></script>
+<script src="{{asset('helperAsset/toastity.min.js')}}"></script>
+<script src="{{asset('helperAsset/config.js')}}"></script>
 </body>
 
 @yield('script')

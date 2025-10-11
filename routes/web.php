@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authintication\AuthController;
+use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,11 @@ Route::middleware('tokenVeryfy')->group(function(){
 
     Route::middleware('adminModaretorRole')->group(function(){
         Route::get('/dashboard',[DashboardController::class,'dashboard']);
+
+        //category
+        Route::get('/categorypage',[CategoryController::class,'CategoryPage']);
+        Route::get('/createpage',[CategoryController::class,'CreatePage']);
+        Route::post('/createcategory',[CategoryController::class,'create']);
     });
 
     Route::middleware('userRole')->group(function(){

@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function dashboard(Request $request){
         if($request->header('role') == 1){
-            return view('dashboard.app');
+            return view('dashboard.pages.dashboard');
         }
         if ($request->header('role') == 2){
             return "Welcome to Dashbord You are moderator";
