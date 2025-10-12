@@ -15,6 +15,7 @@
     {{--    helper css--}}
     <link rel="stylesheet" href="{{asset('helperAsset/loader.css')}}">
     <link rel="stylesheet" href="{{asset('helperAsset/toastyfy.min.css')}}">
+    <link rel="stylesheet" href="{{asset('helperAsset/datatable.min.css')}}">
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -96,6 +97,7 @@
 {{--helper Js--}}
 <script src="{{asset('helperAsset/axios.min.js')}}"></script>
 <script src="{{asset('helperAsset/toastity.min.js')}}"></script>
+<script src="{{asset('helperAsset/jqarey.datatable.min.js')}}"></script>
 <script src="{{asset('helperAsset/config.js')}}"></script>
 </body>
 

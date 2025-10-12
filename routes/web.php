@@ -39,6 +39,8 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::get('/categorypage',[CategoryController::class,'CategoryPage']);
         Route::get('/createpage',[CategoryController::class,'CreatePage']);
         Route::post('/createcategory',[CategoryController::class,'create']);
+        Route::get('/getcategory',[CategoryController::class,'listCategory']);
+        Route::post('/categoryitem',[CategoryController::class,'itemCategory']);
     });
 
     Route::middleware('userRole')->group(function(){
