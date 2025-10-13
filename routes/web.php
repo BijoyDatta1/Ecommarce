@@ -38,9 +38,15 @@ Route::middleware('tokenVeryfy')->group(function(){
         //category
         Route::get('/categorypage',[CategoryController::class,'CategoryPage']);
         Route::get('/createpage',[CategoryController::class,'CreatePage']);
+        Route::get('/category/updatepage/{id}',[CategoryController::class,'UpdatePage']);
         Route::post('/createcategory',[CategoryController::class,'create']);
         Route::get('/getcategory',[CategoryController::class,'listCategory']);
         Route::post('/categoryitem',[CategoryController::class,'itemCategory']);
+        Route::post('/updatestatus',[CategoryController::class,'updateStatus']);
+        Route::post('/deletecategory',[CategoryController::class,'deleteCategory']);
+        Route::post('/updatecategory',[CategoryController::class,'updateCategory']);
+
+
     });
 
     Route::middleware('userRole')->group(function(){
