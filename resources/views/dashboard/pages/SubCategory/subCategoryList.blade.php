@@ -10,7 +10,7 @@
                         <h1>Categories</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{'/createpage'}}" class="btn btn-primary">New Category</a>
+                        <a href="{{'/sub/createpage'}}" class="btn btn-primary">New Sub Category</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,6 @@
                             <thead>
                             <tr>
                                 <th width="60">No</th>
-                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th width="100">Status</th>
@@ -66,9 +65,10 @@
     <script>
         getList();
 
+
         async function updateStatus(id, status){
             showLoader();
-            let req = await axios.post('/updatestatus',{
+            let req = await axios.post('/sub/updatestatus',{
                 id : id,
                 status : status
             });
@@ -82,7 +82,7 @@
 
         async function getList(){
             showLoader();
-            let req = await axios('/getcategory');
+            let req = await axios('/sub/getcategory');
             hideLoader();
             let tablebody = $('#tableData');
             let tableList = $('#tableList');
@@ -100,7 +100,6 @@
                     let row = `
                         <tr>
                                 <td>${index + 1}</td>
-                                <td><img style="width: 50px" src="uploads/category/${item['image']}" alt=""></td>
                                 <td>${item['name']}</td>
                                 <td>${item['slug']}</td>
                                 <td><span class="${badge}">${item['status']}</span></td>

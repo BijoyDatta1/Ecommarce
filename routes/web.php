@@ -3,6 +3,7 @@
 use App\Http\Controllers\Authintication\AuthController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\dashboard\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,17 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::post('/updatestatus',[CategoryController::class,'updateStatus']);
         Route::post('/deletecategory',[CategoryController::class,'deleteCategory']);
         Route::post('/updatecategory',[CategoryController::class,'updateCategory']);
+
+        //sub category
+        Route::get('/sub/categorypage',[SubCategoryController::class,'subCateogoryPage']);
+        Route::get('/sub/createpage',[SubCategoryController::class,'subCateogoryCreatePage']);
+        Route::get('/sub/getcategory',[SubCategoryController::class,'subCateogoryGet']);
+        Route::post('/sub/createcategory',[SubCategoryController::class,'subCategoryCreate']);
+        Route::post('/sub/updatestatus',[SubCategoryController::class,'updateStatus']);
+        Route::post('/sub/deletecategory',[SubCategoryController::class,'subCategoryDelete']);
+
+
+
 
 
     });

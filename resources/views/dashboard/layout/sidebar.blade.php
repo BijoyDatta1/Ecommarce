@@ -24,7 +24,7 @@ with font-awesome or any other icon font library -->
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="subcategory.html" class="nav-link">
+                        <a href="{{'/sub/categorypage'}}" class="nav-link">
                             <i class="nav-icon fas fa-file-alt"></i>
                             <p>Sub Category</p>
                         </a>
