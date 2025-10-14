@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +15,11 @@ class SubCategoryController extends Controller
     }
     public function subCateogoryCreatePage(){
         return view('dashboard.pages.SubCategory.SubCategoryCreate');
+    }
+    public function subCategoryUpdatePage($id){
+        $data =  SubCategory::where('id',$id)->first();
+        $data1 = Category::where('id',$data->category_id)->first();
+        return view('dashboard.pages.SubCategory.SubCategoryUpdate',['data'=>$data, 'category'=>$data1]);
     }
     public function subCateogoryGet(){
         $subCategories = SubCategory::all();
@@ -56,12 +62,13 @@ class SubCategoryController extends Controller
 
     }
     public function subCategoryDelete(Request $request){
-        $subCategory = SubCategoryController::where('id',$request['id'])->first();
+
+        $subCategory = SubCategory::where('id',$request['id'])->first();
         if ($subCategory->delete()){
             return response()->json([
                 'status'=>'success',
                 'message'=>'SubCategory Deleted Successfully'
-            ],);
+            ],200);
         }else{
             return response()->json([
                 'status'=>'failed',

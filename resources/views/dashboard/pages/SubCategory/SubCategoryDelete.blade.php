@@ -13,13 +13,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="delete-close-btn" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" onclick="deleteCategoy()" id="confirmDeleteBtn" class="btn btn-danger">Confirm</button>
+                <button type="button" onclick="deleteSubCategoy()" id="confirmDeleteBtn" class="btn btn-danger">Confirm</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-    async function deleteCategoy(){
+    async function deleteSubCategoy(){
         let id = document.getElementById('deleteCategoryId').value;
         showLoader();
         let req = await axios.post('/sub/deletecategory',{

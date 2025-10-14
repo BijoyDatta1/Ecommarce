@@ -1,6 +1,5 @@
 @extends('dashboard.layout.main')
 @section('section')
-<h1>{{$data->name}}</h1>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,10 +8,10 @@
         <div class="container-fluid my-2">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Create Category</h1>
+                    <h1>Update Sub Category</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{'/categorypage'}}" class="btn btn-primary">Back</a>
+                    <a href="{{'/sub/categorypage'}}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
@@ -24,7 +23,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
+                    <input class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name">Name</label>
@@ -32,6 +31,7 @@
                                 <input type="hidden" id="categoryId" value="{{$data->id}}">
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="mb-3" >
                                 <div class="form-group">
@@ -50,20 +50,21 @@
                         </div>
 
                         <div class="col-md-4">
-                            <img id="tamnelImg" style="width: 150px" src="{{asset('uploads/category/').'/'.$data->image}}">
-                        </div>
+                            <div class="mb-3">
+                                <label for="Category">Category</label>
+                                <select class="form-control" id="Category" name="Category">
 
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <input id="categoryImg" oninput="tamnelImg.src=window.URL.createObjectURL(this.files[0])" type="file" name="image" class="form-control" >
+                                </select>
                             </div>
                         </div>
+                        <input type="hidden" id="selectedCategoryId" value="{{$category->id}}">
+
                     </div>
                 </div>
             </div>
             <div class="pb-5 pt-3">
-                <button class="btn btn-primary" onclick="updateCategory()">Create</button>
-                <a href="{{'/categorypage'}}" class="btn btn-outline-dark ml-3">Cancel</a>
+                <button class="btn btn-primary" onclick="subCategoryUpdate()">Create</button>
+                <a href="{{'/sub/categorypage'}}" class="btn btn-outline-dark ml-3">Cancel</a>
             </div>
         </div>
         <!-- /.card -->
@@ -75,7 +76,24 @@
 
 @section('script')
     <script>
-        async function updateCategory(){
+
+        getCategory();
+        async function getCategory() {
+            showLoader();
+            let req = await axios.get('/getcategory');
+            hideLoader();
+            if(req.status === 200 && req.data['status'] === 'success'){
+                let Category = document.getElementById('Category');
+                let selectedCategoryId = document.getElementById('selectedCategoryId').value;
+                req.data.data.forEach(function(item, index){
+                    selectedCategoryId == item['id'] ? let selected = "selected" : "";
+                    let row = `<option ${selected} value="${item['id']}">${item['name']}</option>`
+                    Category.innerHTML += row;
+                })
+            }
+        }
+
+        async function subCategoryUpdate(){
 
             let id = document.getElementById('categoryId').value;
             let name = document.getElementById('name').value;

@@ -21,19 +21,6 @@
             <!-- Default box -->
             <div class="container-fluid">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-tools">
-                            <div class="input-group input-group" style="width: 250px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card-body table-responsive p-0">
                         <table id="tableData" class="table table-hover text-nowrap">
                             <thead>
@@ -58,7 +45,7 @@
     </div>
     <!-- /.content-wrapper -->
     {{--delete modal include for conframation--}}
-    @include('dashboard.pages.delete');
+    @include('dashboard.pages.SubCategory.SubCategoryDelete');
 @endsection
 
 @section('script')
@@ -140,7 +127,7 @@
             UpdateButton.forEach(function(button){
                 button.addEventListener('click',function(){
                     let id  = this.getAttribute('data-id');
-                    window.location.href = `SubCategory/updatepage/${id}`;
+                    window.location.href = `/subCategory/updatepage/${id}`;
                 })
             })
 

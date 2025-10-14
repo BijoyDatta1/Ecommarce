@@ -54,6 +54,7 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::post('/sub/createcategory',[SubCategoryController::class,'subCategoryCreate']);
         Route::post('/sub/updatestatus',[SubCategoryController::class,'updateStatus']);
         Route::post('/sub/deletecategory',[SubCategoryController::class,'subCategoryDelete']);
+        Route::get('/subCategory/updatepage/{id}',[SubCategoryController::class,'subCategoryUpdatePage']);
 
 
 
