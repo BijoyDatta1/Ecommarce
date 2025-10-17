@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authintication\AuthController;
+use App\Http\Controllers\dashboard\BrandController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\SubCategoryController;
@@ -56,6 +57,17 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::post('/sub/deletecategory',[SubCategoryController::class,'subCategoryDelete']);
         Route::get('/subCategory/updatepage/{id}',[SubCategoryController::class,'subCategoryUpdatePage']);
         Route::post('/sub/updatecategory',[SubCategoryController::class,'subCategoryUpdate']);
+
+        //brand
+        Route::get('/brandpage',[BrandController::class,'BrandPage']);
+        Route::get('/brandcreatepage',[BrandController::class,'BrandCreatePage']);
+        Route::post('/createbrand',[BrandController::class,'createBrand']);
+        Route::get('/getbrand',[BrandController::class,'getAllBrand']);
+        Route::post('/deletebrand',[BrandController::class,'deleteBrand']);
+        Route::post('/updatebrandstatus',[BrandController::class,'updateStatus']);
+        Route::get('/brand/updatepage/{id}',[BrandController::class,'brandUpdatePage']);
+        Route::post('/updatebrand',[BrandController::class,'updateBrand']);
+
 
 
 
