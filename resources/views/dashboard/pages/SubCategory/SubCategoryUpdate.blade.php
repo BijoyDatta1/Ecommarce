@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <input class="row">
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name">Name</label>
@@ -52,12 +52,12 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="Category">Category</label>
+                                <input type="hidden" id="selectedCategoryId" value="{{$category->id}}">
                                 <select class="form-control" id="Category" name="Category">
 
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" id="selectedCategoryId" value="{{$category->id}}">
 
                     </div>
                 </div>
@@ -86,36 +86,30 @@
                 let Category = document.getElementById('Category');
                 let selectedCategoryId = document.getElementById('selectedCategoryId').value;
                 req.data.data.forEach(function(item, index){
-                    selectedCategoryId == item['id'] ? let selected = "selected" : "";
-                    let row = `<option ${selected} value="${item['id']}">${item['name']}</option>`
+                    let row =`<option ${item['id'] == selectedCategoryId ? "selected" : ""} value="${item['id']}">${item['name']}</option>`
                     Category.innerHTML += row;
                 })
             }
         }
 
         async function subCategoryUpdate(){
-
             let id = document.getElementById('categoryId').value;
             let name = document.getElementById('name').value;
             let status = document.getElementById('status').value;
-            let image = document.getElementById('categoryImg').files[0];
-            let formData = new FormData();
-            formData.append("id", id);
-            formData.append("name", name);
-            formData.append('status', status);
-            formData.append('image', image);
+            let category_id = document.getElementById('Category').value;
             showLoader();
-            let req = await axios.post('/updatecategory', formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
-            hideLoader();
+            let req = await axios.post('/sub/updatecategory',{
+                id : id,
+                name : name,
+                status : status,
+                category_id : category_id
+            });
+
             if(req.status === 200 && req.data['status'] === 'success'){
                 setTimeout(function(){
                     successToast(req.data['message']);
                 },1000);
-                window.location.href = "/categorypage";
+                window.location.href = "/sub/categorypage";
             }else{
                 let data = req.data.message;
                 if(typeof data === 'object'){

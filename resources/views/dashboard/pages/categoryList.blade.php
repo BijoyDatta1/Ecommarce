@@ -141,7 +141,7 @@
             UpdateButton.forEach(function(button){
                 button.addEventListener('click',function(){
                     let id  = this.getAttribute('data-id');
-                    window.location.href = `SubCategory/updatepage/${id}`;
+                    window.location.href = `category/updatepage/${id}`;
                 })
             })
 

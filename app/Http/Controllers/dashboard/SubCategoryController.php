@@ -58,8 +58,33 @@ class SubCategoryController extends Controller
             ]);
         }
     }
-    public function subCategoryUpdate(){
-
+    public function subCategoryUpdate(Request $request){
+        $validation = Validator::make($request->all(),[
+            'name' => 'required|unique:sub_categoris,name,'.$request['id'],
+            'category_id' => 'required|exists:categoris,id',
+            'status' => 'required'
+        ]);
+        if($validation->fails()){
+            return response()->json([
+                'status'=>'failed',
+                'message'=>$validation->errors()
+            ]);
+        }
+        $subCategory = SubCategory::where('id',$request['id'])->first();
+        $subCategory->name = $request['name'];
+        $subCategory->category_id = $request['category_id'];
+        $subCategory->status = $request['status'];
+        if($subCategory->save()){
+            return response()->json([
+                'status'=>'success',
+                'message'=>'Sub Category Updated Successfully'
+            ],200);
+        }else{
+            return response()->json([
+                'status'=>'failed',
+                'message'=>'Something Went Wrong'
+            ]);
+        }
     }
     public function subCategoryDelete(Request $request){
 
