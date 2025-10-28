@@ -4,6 +4,7 @@ use App\Http\Controllers\Authintication\AuthController;
 use App\Http\Controllers\dashboard\BrandController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\dashboard\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,12 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::post('/updatebrandstatus',[BrandController::class,'updateStatus']);
         Route::get('/brand/updatepage/{id}',[BrandController::class,'brandUpdatePage']);
         Route::post('/updatebrand',[BrandController::class,'updateBrand']);
+
+        //product
+        Route::get('/product/createpage',[ProductController::class,'productCreatePage']);
+        Route::get('/activecategory',[ProductController::class,'activeCategories']);
+        Route::post('/getactivesubcategory',[ProductController::class,'activeSubCategories']);
+        Route::get('/getactivebrand',[ProductController::class,'activeBrands']);
 
 
 

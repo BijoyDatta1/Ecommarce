@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('dashboardAsset/plugins/fontawesome-free/css/all.min.css')}}">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dashboardAsset/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('dashboardAsset/css/custom.css')}}">
+
+    <!-- plagin style -->
+    <link rel="stylesheet" href="{{asset('dashboardAsset/plugins/summernote/summernote.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboardAsset/plugins/dropzone/dropzone.css')}}">
 
     {{--    helper css--}}
     <link rel="stylesheet" href="{{asset('helperAsset/loader.css')}}">
@@ -93,6 +98,10 @@
 <script src="{{asset('dashboardAsset/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dashboardAsset/js/demo.js')}}"></script>
+
+<!-- Plagin -->
+<script src="{{asset('dashboardAsset/plugins/summernote/summernote.js')}}"></script>
+<script src="{{asset('dashboardAsset/plugins/dropzone/dropzone.js')}}"></script>
 
 {{--helper Js--}}
 <script src="{{asset('helperAsset/axios.min.js')}}"></script>
