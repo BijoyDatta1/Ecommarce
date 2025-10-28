@@ -109,6 +109,7 @@
                                 <h2 class="h4 mb-3">Product status</h2>
                                 <div class="mb-3">
                                     <select name="status" id="status" class="form-control">
+                                        <option value=" ">Please Select the status</option>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>
@@ -147,6 +148,7 @@
                                 <h2 class="h4 mb-3">Featured product</h2>
                                 <div class="mb-3">
                                     <select name="featured" id="featured" class="form-control">
+                                        <option value=" ">Do you Want Featured</option>
                                         <option value="no">No</option>
                                         <option value="yes">Yes</option>
                                     </select>
@@ -158,6 +160,7 @@
                                 <h2 class="h4 mb-3">Display Product</h2>
                                 <div class="mb-3">
                                     <select name="display" id="display" class="form-control">
+                                        <option value=" ">Do you Want Display</option>
                                         <option value="no">No</option>
                                         <option value="yes">Yes</option>
                                     </select>
@@ -285,6 +288,13 @@
             maxFiles: 10,
             paramName: "images",
             acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            dictRemoveFile: "Remove", // optional: text for the button
+            init: function () {
+                this.on("removedfile", function(file) {
+                    console.log("File removed:", file.name);
+                });
+            }
         });
 
 
@@ -330,6 +340,23 @@
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             hideLoader();
+            if(req.status === 200 && req.data['status'] === 'success'){
+                successToast(req.data.message);
+                dropzone.removeAllFiles(true);
+                setTimeout(function (){
+                    window.location.href = "/getproduct/listpage";
+                },2000)
+
+            }else{
+                let data = req.data.message;
+                if(typeof data === 'object'){
+                    for (let key in data) {
+                        errorToast(data[key]);
+                    }
+                }else{
+                    errorToast(data);
+                }
+            }
 
         }
 
