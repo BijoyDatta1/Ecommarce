@@ -60,9 +60,25 @@ class ProductController extends Controller
         }
     }
 
-    public function productsListPage(){
+    public function getAllProducts(){
         $product = Product::orderBy('id', 'desc')->get();
-        return view('dashboard.pages.product.productList', compact('product'));
+        $images = Image::all();
+        if ($product->count() > 0){
+            return response()->json([
+                'status' => 'success',
+                'product' => $product,
+                'images' => $images
+            ],200);
+        }else{
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Product Not Found In Database'
+            ]);
+        }
+    }
+
+    public function productsListPage(){
+        return view('dashboard.pages.product.productList',);
     }
     public function productCreatePage(){
         return view('dashboard.pages.product.productCreate');

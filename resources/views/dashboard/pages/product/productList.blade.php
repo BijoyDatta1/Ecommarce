@@ -10,7 +10,7 @@
                         <h1>Products</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{'/product/createpage'}}" class="btn btn-primary">New Product</a>
+                        <a href="{{'/product/createpage'}}" class="btn btn-primary">Create Product</a>
                     </div>
                 </div>
             </div>
@@ -27,8 +27,13 @@
                             <tr>
                                 <th width="60">No</th>
                                 <th>Name</th>
-                                <th>Slug</th>
-                                <th width="100">Status</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Compare Price</th>
+                                <th>Quntaty</th>
+                                <th>Featured</th>
+                                <th>Display</th>
+                                <th >Status</th>
                                 <th width="100">Action</th>
                             </tr>
                             </thead>
@@ -50,94 +55,115 @@
 
 @section('script')
     <script>
-        // getList();
-        //
-        //
-        // async function updateStatus(id, status){
-        //     showLoader();
-        //     let req = await axios.post('/sub/updatestatus',{
-        //         id : id,
-        //         status : status
-        //     });
-        //     hideLoader();
-        //
-        //     if(req.status === 200 && req.data['status'] === 'success'){
-        //         successToast(req.data['message']);
-        //         getList();
-        //     }
-        // }
-        //
-        // async function getList(){
-        //     showLoader();
-        //     let req = await axios('/sub/getcategory');
-        //     hideLoader();
-        //     let tablebody = $('#tableData');
-        //     let tableList = $('#tableList');
-        //
-        //     //DataTable(),empty() and destroy() fucntion from jqurey Data Table plagin. those function fast distroy the table and then empty the table
-        //     tablebody.DataTable().destroy();
-        //     tableList.empty();
-        //
-        //     if(req.status === 200 && req.data['status'] === 'success'){
-        //         req.data.data.forEach(function(item,index){
-        //             let badge = item['status'] == "active" ? "badge badge-success" : "badge badge-danger";
-        //             let button = item['status'] == "active"
-        //                 ? `<button type="button" data-id="${item['id']}" data-status ="inactive" class="btn StatusButton btn-warning">Inactive</button>`
-        //                 : `<button type="button" data-id="${item['id']}" data-status ="active" class="btn StatusButton btn-success">Active</button>`;
-        //             let row = `
-        //                 <tr>
-        //                         <td>${index + 1}</td>
-        //                         <td>${item['name']}</td>
-        //                         <td>${item['slug']}</td>
-        //                         <td><span class="${badge}">${item['status']}</span></td>
-        //                         <td>
-        //                             <button type="button" data-id="${item['id']}" class="btn EditButton btn-success">Edit</button>
-        //                             <button type="button" data-id="${item['id']}" class="btn DeleteButton btn-danger">Delete</button>
-        //                             ${button}
-        //                         </td>
-        //                     </tr>
-        //             `
-        //             tableList.append(row);
-        //         })
-        //
-        //     }else{
-        //
-        //     }
-        //
-        //     let StatusButton = document.querySelectorAll('.StatusButton');
-        //     StatusButton.forEach(function(button){
-        //         button.addEventListener('click',function (){
-        //             let id = this.getAttribute('data-id');
-        //             let status = this.getAttribute('data-status');
-        //             updateStatus(id,status);
-        //         })
-        //     })
-        //
-        //     let DeleteButtons = document.querySelectorAll('.DeleteButton');
-        //     DeleteButtons.forEach(function(button){
-        //         button.addEventListener('click',function(){
-        //             let id = this.getAttribute('data-id');
-        //             document.getElementById('deleteCategoryId').value = id;
-        //             let modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
-        //             modal.show();
-        //         })
-        //     })
-        //
-        //     let UpdateButton = document.querySelectorAll('.EditButton');
-        //     UpdateButton.forEach(function(button){
-        //         button.addEventListener('click',function(){
-        //             let id  = this.getAttribute('data-id');
-        //             window.location.href = `/subCategory/updatepage/${id}`;
-        //         })
-        //     })
-        //
-        //
-        //
-        //     //jqurey data table plagin
-        //     new DataTable('#tableData', {
-        //         order:[[0,'desc']],
-        //         lengthMenu:[5,10,15,20,30]
-        //     });
-        // }
+        getList();
+
+
+        async function updateStatus(id, status){
+            showLoader();
+            let req = await axios.post('/sub/updatestatus',{
+                id : id,
+                status : status
+            });
+            hideLoader();
+
+            if(req.status === 200 && req.data['status'] === 'success'){
+                successToast(req.data['message']);
+                getList();
+            }
+        }
+
+        async function getList(){
+            showLoader();
+            let req = await axios('/get/allproduct');
+            hideLoader();
+            let tablebody = $('#tableData');
+            let tableList = $('#tableList');
+
+            //DataTable(),empty() and destroy() fucntion from jqurey Data Table plagin. those function fast distroy the table and then empty the table
+            tablebody.DataTable().destroy();
+            tableList.empty();
+
+            if(req.status === 200 && req.data['status'] === 'success'){
+                req.data['product'].forEach(function(item,index){
+
+                    let images = [];
+                    req.data['images'].forEach(function (item1, index1){
+                        if(item['id'] === item1['product_id']){
+                             images.push(item1['image_url'])
+                        }
+                    })
+                    console.log(images);
+
+                    let imageHtml = '';
+                    for(let i = 0; i < images.length && i < 3; i++){
+                        imageHtml += `<img style="width: 50px; padding: 2px; border: 1px solid gray" src="/uploads/product/${images[i]}" alt="">`
+                    }
+
+                    let badgeStatus = item['status'] == "active" ? "badge badge-success" : "badge badge-danger";
+                    let badgeFeature = item['featured'] == "yes" ? "badge badge-success" : "badge badge-danger";
+                    let badgeDisplay = item['display'] == "yes" ? "badge badge-success" : "badge badge-danger";
+                    let button = item['status'] == "active"
+                        ? `<button type="button" data-id="${item['id']}" data-status ="inactive" class="btn StatusButton btn-warning">Inactive</button>`
+                        : `<button type="button" data-id="${item['id']}" data-status ="active" class="btn StatusButton btn-success">Active</button>`;
+                    let row = `
+                        <tr>
+                                <td>${index + 1}</td>
+                                <td>${item['name']}</td>
+                                <td class="thumbnel">${imageHtml}</td>
+                                <td>${item['price']}</td>
+                                <td>${item['compare_price']}</td>
+                                <td>${item['qty']}</td>
+                                <td><span class="${badgeFeature}">${item['featured']}</span></td>
+                                <td><span class="${badgeDisplay}">${item['display']}</span></td>
+                                <td><span class="${badgeStatus}">${item['status']}</span></td>
+                                <td>
+                                    <button type="button" data-id="${item['id']}" class="btn EditButton btn-success">Edit</button>
+                                    <button type="button" data-id="${item['id']}" class="btn DeleteButton btn-danger">Delete</button>
+                                    ${button}
+                                </td>
+                            </tr>
+                    `
+                    tableList.append(row);
+                })
+
+            }else{
+
+            }
+
+            let StatusButton = document.querySelectorAll('.StatusButton');
+            StatusButton.forEach(function(button){
+                button.addEventListener('click',function (){
+                    let id = this.getAttribute('data-id');
+                    let status = this.getAttribute('data-status');
+                    updateStatus(id,status);
+                })
+            })
+
+            let DeleteButtons = document.querySelectorAll('.DeleteButton');
+            DeleteButtons.forEach(function(button){
+                button.addEventListener('click',function(){
+                    let id = this.getAttribute('data-id');
+                    document.getElementById('deleteCategoryId').value = id;
+                    let modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                    modal.show();
+                })
+            })
+
+            let UpdateButton = document.querySelectorAll('.EditButton');
+            UpdateButton.forEach(function(button){
+                button.addEventListener('click',function(){
+                    let id  = this.getAttribute('data-id');
+                    window.location.href = `/subCategory/updatepage/${id}`;
+                })
+            })
+
+
+
+            //jqurey data table plagin
+            new DataTable('#tableData', {
+                order:[[0,'desc']],
+                lengthMenu:[5,10,15,20,30]
+            });
+        }
     </script>
 @endsection

@@ -73,6 +73,7 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::get('/product/createpage',[ProductController::class,'productCreatePage']);
         Route::get('/getproduct/listpage',[ProductController::class,'productsListPage']);
         Route::get('/activecategory',[ProductController::class,'activeCategories']);
+        Route::get('/get/allproduct',[ProductController::class,'getAllProducts']);
         Route::post('/getactivesubcategory',[ProductController::class,'activeSubCategories']);
         Route::get('/getactivebrand',[ProductController::class,'activeBrands']);
         Route::post('/create/product',[ProductController::class,'store']);
