@@ -9,20 +9,20 @@
             </div>
             <div class="modal-body">
                 Are you sure you want to delete this item?
-                <input type="hidden" id="deleteCategoryId">
+                <input type="hidden" id="deleteProductId">
             </div>
             <div class="modal-footer">
                 <button type="button" id="delete-close-btn" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" onclick="deleteSubCategoy()" id="confirmDeleteBtn" class="btn btn-danger">Confirm</button>
+                <button type="button" onclick="deleteProduct()" id="confirmDeleteBtn" class="btn btn-danger">Confirm</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-    async function deleteSubCategoy(){
-        let id = document.getElementById('deleteCategoryId').value;
+    async function deleteProduct(){
+        let id = document.getElementById('deleteProductId').value;
         showLoader();
-        let req = await axios.post('/sub/deletecategory',{
+        let req = await axios.post('/delete/product',{
             id : id
         })
         hideLoader();

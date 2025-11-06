@@ -91,7 +91,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="track_qty" name="track_qty" checked>
+                                                <input class="custom-control-input" type="checkbox" id="track_qty" name="track_qty">
                                                 <label for="track_qty" class="custom-control-label">Track Quantity</label>
                                             </div>
                                         </div>
@@ -224,6 +224,7 @@
             getSubcategory();
             async function getSubcategory(){
                 let subcategory = document.getElementById('sub_category');
+                subcategory.innerHTML = '<option value="">Select Sub Category</option>';
                 showLoader();
                 req = await axios.post('/getactivesubcategory',{
                     id : id

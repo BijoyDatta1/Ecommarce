@@ -45,3 +45,11 @@
         transform: rotate(360deg);
     }
 }
+
+
+/*dorpzone thubnaill resize for fatch image*/
+#images .dz-image img {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+}

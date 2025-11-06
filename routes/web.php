@@ -77,6 +77,10 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::post('/getactivesubcategory',[ProductController::class,'activeSubCategories']);
         Route::get('/getactivebrand',[ProductController::class,'activeBrands']);
         Route::post('/create/product',[ProductController::class,'store']);
+        Route::post('/product/updatestatus',[ProductController::class,'updateStatus']);
+        Route::post('/delete/product',[ProductController::class,'deleteProduct']);
+        Route::get('/update/product/{id}',[ProductController::class,'updateProductPage']);
+        Route::post('/update/product',[ProductController::class,'updateProduct']);
 
 
 

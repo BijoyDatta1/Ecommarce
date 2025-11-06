@@ -60,7 +60,7 @@
 
         async function updateStatus(id, status){
             showLoader();
-            let req = await axios.post('/sub/updatestatus',{
+            let req = await axios.post('/product/updatestatus',{
                 id : id,
                 status : status
             });
@@ -143,7 +143,7 @@
             DeleteButtons.forEach(function(button){
                 button.addEventListener('click',function(){
                     let id = this.getAttribute('data-id');
-                    document.getElementById('deleteCategoryId').value = id;
+                    document.getElementById('deleteProductId').value = id;
                     let modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
                     modal.show();
                 })
@@ -153,7 +153,7 @@
             UpdateButton.forEach(function(button){
                 button.addEventListener('click',function(){
                     let id  = this.getAttribute('data-id');
-                    window.location.href = `/subCategory/updatepage/${id}`;
+                    window.location.href = `/update/product/${id}`;
                 })
             })
 
