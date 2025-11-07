@@ -45,6 +45,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'status' => 'required',
             'image' => 'required',
+            'display' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -73,6 +74,7 @@ class CategoryController extends Controller
                     $category = new Category();
                     $category->name = $request['name'];
                     $category->status = $request['status'];
+                    $category->display = $request['display'];
                     $category->image = $imageName;
                     if ($category->save()) {
                         return response()->json([
@@ -109,7 +111,8 @@ class CategoryController extends Controller
     public function updateCategory(Request $request){
         $validation = Validator::make($request->all(),[
             'name' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'display' => 'required'
         ]);
         if ($validation->fails()){
             return response()->json([
@@ -155,6 +158,7 @@ class CategoryController extends Controller
         }
 
         $category->name = $request['name'];
+        $category->display = $request['display'];
         $category->status = $request['status'];
         if ($category->save()) {
             return response()->json([

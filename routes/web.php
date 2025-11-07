@@ -6,6 +6,7 @@ use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\dashboard\SubCategoryController;
+use App\Http\Controllers\fontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
+//forntend url and pages
+Route::get('/',[HomeController::class,'index']);
+Route::get('/shoppage',[HomeController::class,'index']);
+
+
+//authentication page
 Route::get('/loginpage',[AuthController::class,'loginPage']);
 Route::get('/registerPage',[AuthController::class,'registerPage']);
 Route::get('/otpPage',[AuthController::class,'otpPage']);

@@ -22,8 +22,8 @@ class SubCategoryController extends Controller
         return view('dashboard.pages.SubCategory.SubCategoryUpdate',['data'=>$data, 'category'=>$data1]);
     }
     public function subCateogoryGet(){
-        $subCategories = SubCategory::all();
-        if (count($subCategories) > 0){
+        $subCategories = SubCategory::with('category')->get();
+        if ($subCategories->isNotEmpty()){
             return response()->json([
                 'status' => 'success',
                 'data' => $subCategories
@@ -34,7 +34,8 @@ class SubCategoryController extends Controller
         $validation = Validator::make($request->all(),[
             'name' => 'required|unique:sub_categoris,name',
             'category_id' => 'required|exists:categoris,id',
-            'status' => 'required'
+            'status' => 'required',
+            'display' => 'required'
         ]);
         if($validation->fails()){
             return response()->json([
@@ -46,6 +47,7 @@ class SubCategoryController extends Controller
         $subCategoris->name = $request['name'];
         $subCategoris->category_id = $request['category_id'];
         $subCategoris->status = $request['status'];
+        $subCategoris->display = $request['display'];
         if($subCategoris->save()){
             return response()->json([
                 'status'=>'success',
@@ -62,7 +64,8 @@ class SubCategoryController extends Controller
         $validation = Validator::make($request->all(),[
             'name' => 'required|unique:sub_categoris,name,'.$request['id'],
             'category_id' => 'required|exists:categoris,id',
-            'status' => 'required'
+            'status' => 'required',
+            'display' => 'required'
         ]);
         if($validation->fails()){
             return response()->json([
@@ -74,6 +77,7 @@ class SubCategoryController extends Controller
         $subCategory->name = $request['name'];
         $subCategory->category_id = $request['category_id'];
         $subCategory->status = $request['status'];
+        $subCategory->display = $request['display'];
         if($subCategory->save()){
             return response()->json([
                 'status'=>'success',

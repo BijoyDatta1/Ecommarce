@@ -50,6 +50,23 @@
                         </div>
 
                         <div class="col-md-4">
+                            <div class="mb-3" >
+                                <div class="form-group">
+                                    <label name="slug"> Display </label>
+                                    <select name="slug" id="display" class="form-control">
+                                        @if($data->display === 'yes')
+                                            <option value="yes" selected>Yes</option>
+                                            <option value="no">No</option>
+                                        @else
+                                            <option value="yes">Yes</option>
+                                            <option value="no" selected>No</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="Category">Category</label>
                                 <input type="hidden" id="selectedCategoryId" value="{{$category->id}}">
@@ -96,12 +113,14 @@
             let id = document.getElementById('categoryId').value;
             let name = document.getElementById('name').value;
             let status = document.getElementById('status').value;
+            let display = document.getElementById('display').value;
             let category_id = document.getElementById('Category').value;
             showLoader();
             let req = await axios.post('/sub/updatecategory',{
                 id : id,
                 name : name,
                 status : status,
+                display : display,
                 category_id : category_id
             });
 

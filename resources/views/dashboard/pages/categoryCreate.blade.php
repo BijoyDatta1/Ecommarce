@@ -43,6 +43,19 @@
                             </div>
 
                             <div class="col-md-4">
+                                <div class="mb-3" >
+                                    <div class="form-group">
+                                        <label name="slug"> Display </label>
+                                        <select name="slug" id="display" class="form-control">
+                                            <option selected>Select The Display</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
                                <img id="tamnelImg" style="width: 150px" src="{{asset('dashboardAsset/img/default-150x150.png')}}">
                             </div>
 
@@ -71,10 +84,12 @@
         async function CreateCategory(){
             let name = document.getElementById('name').value;
             let status = document.getElementById('status').value;
+            let display = document.getElementById('display').value;
             let image = document.getElementById('categoryImg').files[0];
             let formData = new FormData();
             formData.append("name", name);
             formData.append('status', status);
+            formData.append('display', display);
             formData.append('image', image)
             showLoader();
             let req = await axios.post('/createcategory', formData, {

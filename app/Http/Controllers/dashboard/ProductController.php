@@ -187,7 +187,7 @@ class ProductController extends Controller
             'featured' => 'required',
             'display' => 'required',
             'status' => 'required',
-            'images*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         if ($request->track_qty === 'yes') {
@@ -221,7 +221,7 @@ class ProductController extends Controller
             $product->qty = $request->qty;
             if($product->save()){
                 //remove unselected image
-                $removeImages = json_decode($request->removeImages, true);
+                $removeImages = json_decode($request->removeImages ?? '[]', true);
                 if(!empty($removeImages)){
                     foreach($removeImages as $imageID){
                         $removeImg = Image::find($imageID);
@@ -230,6 +230,7 @@ class ProductController extends Controller
                            if(file_exists($filePath)){
                                unlink($filePath);
                            }
+                           $removeImg->delete();
                         }
                     }
                 }

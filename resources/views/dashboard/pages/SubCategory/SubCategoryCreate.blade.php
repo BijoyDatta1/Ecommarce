@@ -41,6 +41,20 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3" >
+                                    <div class="form-group">
+                                        <label name="display"> Display </label>
+                                        <select name="display" id="display" class="form-control">
+                                            <option selected>Select The Status</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="Category">Category</label>
@@ -83,12 +97,14 @@
         async function SubCreateCategory(){
             let name = document.getElementById('name').value;
             let status = document.getElementById('status').value;
+            let display = document.getElementById('display').value;
             let category_id = document.getElementById('Category').value;
             showLoader();
             let req = await axios.post('/sub/createcategory',{
                 'name' : name,
                 'category_id' : category_id,
-                'status' : status
+                'status' : status,
+                'display' : display
             })
             hideLoader();
             if(req.status === 200 && req.data['status'] === 'success'){

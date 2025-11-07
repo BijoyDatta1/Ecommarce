@@ -386,7 +386,7 @@
             formData.append('track_qty',track_qty);
             formData.append('qty',qty);
 
-            formData.append('removeImages', JSON.stringify('removedImageIds'));
+            formData.append('removeImages', JSON.stringify(removedImageIds));
 
             dropzone.files.forEach(file => {
                 if(!file.serverId){

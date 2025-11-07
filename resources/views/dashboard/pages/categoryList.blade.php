@@ -43,6 +43,7 @@
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th width="100">Status</th>
+                                <th width="100">Display</th>
                                 <th width="100">Action</th>
                             </tr>
                             </thead>
@@ -94,6 +95,7 @@
             if(req.status === 200 && req.data['status'] === 'success'){
                 req.data.data.forEach(function(item,index){
                     let badge = item['status'] == "active" ? "badge badge-success" : "badge badge-danger";
+                    let displayBadge = item['display'] == "yes" ? "badge badge-success" : "badge badge-danger";
                     let button = item['status'] == "active"
                         ? `<button type="button" data-id="${item['id']}" data-status ="inactive" class="btn StatusButton btn-warning">Inactive</button>`
                         : `<button type="button" data-id="${item['id']}" data-status ="active" class="btn StatusButton btn-success">Active</button>`;
@@ -104,6 +106,7 @@
                                 <td>${item['name']}</td>
                                 <td>${item['slug']}</td>
                                 <td><span class="${badge}">${item['status']}</span></td>
+                                <td><span class="${displayBadge}">${item['display']}</span></td>
                                 <td>
                                     <button type="button" data-id="${item['id']}" class="btn EditButton btn-success">Edit</button>
                                     <button type="button" data-id="${item['id']}" class="btn DeleteButton btn-danger">Delete</button>

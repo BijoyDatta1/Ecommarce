@@ -50,6 +50,23 @@
                         </div>
 
                         <div class="col-md-4">
+                            <div class="mb-3" >
+                                <div class="form-group">
+                                    <label name="slug"> Display </label>
+                                    <select name="slug" id="display" class="form-control">
+                                        @if($data->display === 'yes')
+                                            <option value="yes" selected>Yes</option>
+                                            <option value="no">No</option>
+                                        @else
+                                            <option value="yes">Yes</option>
+                                            <option value="no" selected>No</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
                             <img id="tamnelImg" style="width: 150px" src="{{asset('uploads/category/').'/'.$data->image}}">
                         </div>
 
@@ -80,11 +97,13 @@
             let id = document.getElementById('categoryId').value;
             let name = document.getElementById('name').value;
             let status = document.getElementById('status').value;
+            let display = document.getElementById('display').value;
             let image = document.getElementById('categoryImg').files[0];
             let formData = new FormData();
             formData.append("id", id);
             formData.append("name", name);
             formData.append('status', status);
+            formData.append('display', display);
             formData.append('image', image);
             showLoader();
             let req = await axios.post('/updatecategory', formData, {
@@ -94,10 +113,11 @@
             })
             hideLoader();
             if(req.status === 200 && req.data['status'] === 'success'){
+                successToast(req.data['message']);
                 setTimeout(function(){
-                    successToast(req.data['message']);
+                    window.location.href = "/categorypage";
                 },1000);
-                window.location.href = "/categorypage";
+
             }else{
                 let data = req.data.message;
                 if(typeof data === 'object'){

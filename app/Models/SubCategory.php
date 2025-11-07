@@ -10,7 +10,11 @@ class SubCategory extends Model
 {
     use HasFactory;
     protected $table = 'sub_categoris';
-    protected $fillable = ['name','slug','status','category_id'];
+    protected $fillable = ['name','slug','status','display','category_id'];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 
     //create and update auto slag
     protected static function boot()

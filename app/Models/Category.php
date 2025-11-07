@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
     protected $table = 'categoris';
-    protected $fillable = ['name','slug','status','image'];
+    protected $fillable = ['name','slug','status','display','image'];
 
     //create and update auto slag
     protected static function boot()
