@@ -26,5 +26,9 @@ class Category extends Model
         });
     }
 
+    public function subCategoris(){
+        return $this->hasMany(SubCategory::class);
+    }
+
 }
 

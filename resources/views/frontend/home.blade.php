@@ -96,119 +96,19 @@
             </div>
         </div>
     </section>
+
     <section class="section-3">
         <div class="container">
             <div class="section-title">
                 <h2>Categories</h2>
             </div>
-            <div class="row pb-3">
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>Mens</h2>
-                                <p>100 Products</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="categorybox" class="row pb-3">
+
+
             </div>
         </div>
     </section>
+
 
     <section class="section-4 pt-5">
         <div class="container">
@@ -567,4 +467,50 @@
     </section>
 </main>
 
+@endsection
+
+@section('script')
+    <script>
+        getCategory();
+        async function getCategory(){
+            showLoader()
+            let req = await axios.get('home/all/category');
+            hideLoader()
+            if(req.status === 200 && req.data['status'] === 'success'){
+                let categorybox = document.getElementById('categorybox');
+                req.data.categories.forEach(function (item, index){
+
+                    let row = `
+                    <div class="col-lg-3">
+                    <div class="cat-card">
+                        <div class="left">
+                            <img src="{{ asset('uploads/category') }}/${item['image']}" alt="" class="img-fluid">
+                        </div>
+                        <div class="right">
+                            <div class="cat-data">
+                                <h2>${item['name']}</h2>
+                                <p>100 Products</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+
+                    categorybox.innerHTML += row;
+                })
+                console.log(categorybox);
+
+            }else{
+                let data = req.data.message;
+                if(typeof data === 'object'){
+                    for (let key in data) {
+                        errorToast(data[key]);
+                    }
+                }else{
+                    errorToast(data);
+                }
+            }
+
+        }
+
+    </script>
 @endsection

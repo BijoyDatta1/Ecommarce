@@ -43,8 +43,19 @@
 
     <!-- Fav Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="#" />
+
+    {{--    helper css--}}
+    <link rel="stylesheet" href="{{asset('helperAsset/loader.css')}}">
+    <link rel="stylesheet" href="{{asset('helperAsset/toastyfy.min.css')}}">
+    <link rel="stylesheet" href="{{asset('helperAsset/datatable.min.css')}}">
 </head>
 <body data-instant-intensity="mousedown">
+
+<!-- Fullscreen Loader -->
+<div id="loader-wrapper" class="loader-wrapper" style="display: none;">
+    <span class="loader"></span>
+</div>
+
 
 <div class="bg-light top-header">
     <div class="container">
@@ -82,62 +93,7 @@
                 <i class="navbar-toggler-icon fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
-                    </li> -->
-
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Electronics
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item nav-link" href="#">Mobile</a></li>
-                            <li><a class="dropdown-item nav-link" href="#">Tablets</a></li>
-                            <li><a class="dropdown-item nav-link" href="#">Laptops</a></li>
-                            <li><a class="dropdown-item nav-link" href="#">Speakers</a></li>
-                            <li><a class="dropdown-item nav-link" href="#">Watches</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Men's Fashion
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">Shirts</a></li>
-                            <li><a class="dropdown-item" href="#">Jeans</a></li>
-                            <li><a class="dropdown-item" href="#">Shoes</a></li>
-                            <li><a class="dropdown-item" href="#">Watches</a></li>
-                            <li><a class="dropdown-item" href="#">Perfumes</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Women's Fashion
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">T-Shirts</a></li>
-                            <li><a class="dropdown-item" href="#">Tops</a></li>
-                            <li><a class="dropdown-item" href="#">Jeans</a></li>
-                            <li><a class="dropdown-item" href="#">Shoes</a></li>
-                            <li><a class="dropdown-item" href="#">Watches</a></li>
-                            <li><a class="dropdown-item" href="#">Perfumes</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Appliances
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">TV</a></li>
-                            <li><a class="dropdown-item" href="#">Washing Machines</a></li>
-                            <li><a class="dropdown-item" href="#">Air Conditioners</a></li>
-                            <li><a class="dropdown-item" href="#">Vacuum Cleaner</a></li>
-                            <li><a class="dropdown-item" href="#">Fans</a></li>
-                            <li><a class="dropdown-item" href="#">Air Coolers</a></li>
-                        </ul>
-                    </li>
+                <ul id="menubar" class="navbar-nav me-auto mb-2 mb-lg-0">
 
 
                 </ul>
@@ -214,6 +170,58 @@
 <script src="{{'fontendAsset/js/lazyload.17.6.0.min.js'}}"></script>
 <script src="{{'fontendAsset/js/slick.min.js'}}"></script>
 <script src="{{'fontendAsset/js/custom.js'}}"></script>
+
+{{--helper Js--}}
+<script src="{{asset('helperAsset/axios.min.js')}}"></script>
+<script src="{{asset('helperAsset/toastity.min.js')}}"></script>
+<script src="{{asset('helperAsset/jqarey.datatable.min.js')}}"></script>
+<script src="{{asset('helperAsset/config.js')}}"></script>
+
+<script>
+    //get category with subcategory
+    getMenu();
+    async function getMenu(){
+        showLoader();
+        let req = await axios.get('/get/menu')
+        hideLoader();
+        if(req.status === 200 && req.data['status'] === 'success'){
+            let menubar = document.getElementById('menubar');
+            req.data.categories.forEach(function (item, index){
+                let submenuId = `submenu${index}`;
+                let row =  `
+                <li class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            ${item['name']}
+                        </button>
+                        <ul id="${submenuId}" class="dropdown-menu dropdown-menu-dark">
+
+                        </ul>
+                    </li>
+                `
+                menubar.innerHTML += row;
+
+                let submenu = document.getElementById(submenuId);
+                item['sub_categoris'].forEach(function (item, index){
+                    let row1 = `
+                        <li><a class="dropdown-item nav-link" href="#">${item['name']}</a></li>
+                    `
+                    submenu.innerHTML += row1;
+                })
+            })
+        }else{
+            let data = req.data.message;
+            if(typeof data === 'object'){
+                for (let key in data) {
+                    errorToast(data[key]);
+                }
+            }else{
+                errorToast(data);
+            }
+        }
+    }
+</script>
+
+@yield('script')
 
 </body>
 </html>

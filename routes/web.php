@@ -7,6 +7,7 @@ use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\dashboard\SubCategoryController;
 use App\Http\Controllers\fontend\HomeController;
+use App\Http\Controllers\fontend\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,8 +25,10 @@ use Illuminate\Support\Facades\Route;
 
 //forntend url and pages
 Route::get('/',[HomeController::class,'index']);
-Route::get('/shoppage',[HomeController::class,'index']);
+Route::get('/get/menu',[HomeController::class,'getMenu']);
+Route::get('home/all/category',[HomeController::class,'getMenu']);
 
+Route::get('/shoppage',[ShopController::class,'index']);
 
 //authentication page
 Route::get('/loginpage',[AuthController::class,'loginPage']);
