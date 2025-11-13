@@ -24,84 +24,8 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="accordion accordion-flush" id="accordionExample">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                Electronics
-                                            </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-                                            <div class="accordion-body">
-                                                <div class="navbar-nav">
-                                                    <a href="" class="nav-item nav-link">Mobile</a>
-                                                    <a href="" class="nav-item nav-link">Tablets</a>
-                                                    <a href="" class="nav-item nav-link">Laptops</a>
-                                                    <a href="" class="nav-item nav-link">Speakers</a>
-                                                    <a href="" class="nav-item nav-link">Watches</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="categoryBox" class="accordion accordion-flush" id="accordionExample">
 
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Men's Fashion
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-                                            <div class="accordion-body">
-                                                <div class="navbar-nav">
-                                                    <a href="" class="nav-item nav-link">Shirts</a>
-                                                    <a href="" class="nav-item nav-link">Jeans</a>
-                                                    <a href="" class="nav-item nav-link">Shoes</a>
-                                                    <a href="" class="nav-item nav-link">Watches</a>
-                                                    <a href="" class="nav-item nav-link">Perfumes</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                Women's Fashion
-                                            </button>
-                                        </h2>
-                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-                                            <div class="accordion-body">
-                                                <div class="navbar-nav">
-                                                    <a href="" class="nav-item nav-link">T-Shirts</a>
-                                                    <a href="" class="nav-item nav-link">Tops</a>
-                                                    <a href="" class="nav-item nav-link">Jeans</a>
-                                                    <a href="" class="nav-item nav-link">Shoes</a>
-                                                    <a href="" class="nav-item nav-link">Watches</a>
-                                                    <a href="" class="nav-item nav-link">Perfumes</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                Applicances
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-                                            <div class="accordion-body">
-                                                <div class="navbar-nav">
-                                                    <a href="" class="nav-item nav-link">TV</a>
-                                                    <a href="" class="nav-item nav-link">Washing Machines</a>
-                                                    <a href="" class="nav-item nav-link">Air Conditioners</a>
-                                                    <a href="" class="nav-item nav-link">Vacuum Cleaner</a>
-                                                    <a href="" class="nav-item nav-link">Fans</a>
-                                                    <a href="" class="nav-item nav-link">Air Coolers</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -173,7 +97,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+
+
+
+
+                    <div  class="col-md-9">
                         <div class="row pb-3">
                             <div class="col-12 pb-1">
                                 <div class="d-flex align-items-center justify-content-end mb-4">
@@ -190,201 +118,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
 
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="productBox" class="row">
+
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
 
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card product-card">
-                                    <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                                        <div class="product-action">
-                                            <a class="btn btn-dark" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-center mt-3">
-                                        <a class="h6 link" href="product.php">Dummy Product Title</a>
-                                        <div class="price mt-2">
-                                            <span class="h5"><strong>$100</strong></span>
-                                            <span class="h6 text-underline"><del>$120</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="col-md-12 pt-5">
                                 <nav aria-label="Page navigation example">
@@ -412,7 +151,105 @@
 
 @section('script')
     <script>
+      getproduct();
 
+      async function getproduct(){
+          showLoader();
+          let req = await axios.get('/get/shopproduct');
+          hideLoader();
+
+          if(req.status === 200 && req.data['status'] === 'success'){
+              let productBox = document.getElementById('productBox');
+            req.data.data.forEach(function(item, index){
+                let row = `
+                    <div class="col-md-4">
+                                <div class="card product-card">
+                                    <div class="product-image position-relative">
+                                        <a href="" class="product-img"><img class="card-img-top"  style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
+                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+
+                                        <div class="product-action">
+                                            <a class="btn btn-dark" href="#">
+                                                <i class="fa fa-shopping-cart"></i> Add To Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center mt-3">
+                                        <a class="h6 link" href="product.php">${item['name']}</a>
+                                        <div class="price mt-2">
+                                            <span class="h5"><strong>${item['price']}</strong></span>
+                                            <span class="h6 text-underline"><del>${item['compare_price']}</del></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                `
+               productBox.innerHTML += row;
+            });
+
+          }else{
+              let data = req.data.message;
+              if(typeof data === 'object'){
+                  for (let key in data) {
+                      errorToast(data[key]);
+                  }
+              }else{
+                  errorToast(data);
+              }
+          }
+
+      }
+
+      getCategory();
+
+      async function getCategory(){
+          let req = await axios.get('/get/shopcategory');
+
+          if(req.status === 200 && req.data['status'] === 'success'){
+              let categoryBox = document.getElementById('categoryBox');
+              console.log(req.data.data);
+              req.data.data.forEach(function(item, index){
+                  let submenuId = `submenuBox${index}`
+                  let row = `
+                        <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                                                ${item['name']}
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+                                            <div class="accordion-body">
+                                                <div id="${submenuId}" class="navbar-nav">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                `
+                  categoryBox.innerHTML += row;
+
+                  let submenuBox = document.getElementById(submenuId);
+
+                  item['sub_categoris'].forEach(function(item1,index1){
+                      let row1 = `
+                            <a href="" class="nav-item nav-link">${item1['name']}</a>
+                      `
+                      submenuBox.innerHTML += row1;
+                  })
+
+              });
+
+          }else{
+              let data = req.data.message;
+              if(typeof data === 'object'){
+                  for (let key in data) {
+                      errorToast(data[key]);
+                  }
+              }else{
+                  errorToast(data);
+              }
+          }
+      }
 
     </script>
 @endsection

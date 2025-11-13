@@ -27,8 +27,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[HomeController::class,'index']);
 Route::get('/get/menu',[HomeController::class,'getMenu']);
 Route::get('home/all/category',[HomeController::class,'getMenu']);
+Route::get('/featured/product',[HomeController::class,'featuredProduct']);
+Route::get('/latest/product',[HomeController::class,'latestProduct']);
+
 
 Route::get('/shoppage',[ShopController::class,'index']);
+Route::get('/get/shopproduct',[ShopController::class,'getProduct']);
+Route::get('/get/shopcategory',[ShopController::class,'getCategory']);
 
 //authentication page
 Route::get('/loginpage',[AuthController::class,'loginPage']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\fontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,7 +22,27 @@ class HomeController extends Controller
             return response()->json([
                 'status' => 'success',
                 'categories' => $categories,
-            ]);
+            ],200);
+        }
+    }
+
+    public function featuredProduct(){
+        $products = Product::where('featured', 'yes')->with('images')->take(12)->get();
+        if($products->isNotEmpty()){
+            return response()->json([
+                'status' => 'success',
+                'products' => $products,
+            ],200);
+        }
+    }
+
+    public function latestProduct(){
+        $products = Product::orderBy('id', 'DESC')->with('images')->take(12)->get();
+        if($products->isNotEmpty()){
+            return response()->json([
+                'status' => 'success',
+                'products' => $products,
+            ],200);
         }
     }
 
