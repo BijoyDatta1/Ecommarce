@@ -32,8 +32,9 @@ Route::get('/latest/product',[HomeController::class,'latestProduct']);
 
 
 Route::get('/shoppage',[ShopController::class,'index']);
-Route::get('/get/shopproduct',[ShopController::class,'getProduct']);
+Route::get('/get/shopproduct/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'getProduct']);
 Route::get('/get/shopcategory',[ShopController::class,'getCategory']);
+Route::get('/get/shopbrand',[ShopController::class,'getBrand']);
 
 //authentication page
 Route::get('/loginpage',[AuthController::class,'loginPage']);

@@ -36,31 +36,8 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-body">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Canon
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        Sony
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        Oppo
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        Vivo
-                                    </label>
-                                </div>
+                            <div id="brandBox" class="card-body">
+
                             </div>
                         </div>
 
@@ -151,11 +128,22 @@
 
 @section('script')
     <script>
-      getproduct();
 
-      async function getproduct(){
+
+      getproduct();
+      async function getproduct(category = null, subcategory = null){
+          let url = '/get/shopproduct';
+          if(category !== null && subcategory === null){
+            url = `/get/shopproduct/${category}`;
+            console.log(url);
+          }
+          if(subcategory !== null && category !== null){
+            url = `/get/shopproduct/${category}/${subcategory}`;
+              console.log(url);
+          }
+
           showLoader();
-          let req = await axios.get('/get/shopproduct');
+          let req = await axios.get(`${url}`);
           hideLoader();
 
           if(req.status === 200 && req.data['status'] === 'success'){
@@ -200,6 +188,7 @@
 
       }
 
+
       getCategory();
 
       async function getCategory(){
@@ -207,17 +196,26 @@
 
           if(req.status === 200 && req.data['status'] === 'success'){
               let categoryBox = document.getElementById('categoryBox');
-              console.log(req.data.data);
+
               req.data.data.forEach(function(item, index){
-                  let submenuId = `submenuBox${index}`
+                  let submenuId = `submenuBox${index}`;
+                  let button = '';
+                  console.log(item);
+                  if(item['sub_categoris'].length === 0){
+                      button = `<a href="#" data-category="${item['slug']}" class="nav-item nav-link category-link">${item['name']}</a>`
+                  }else{
+                      button = `
+                            <h2 class="accordion-header" id="heading${index}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                                      ${item['name']}
+                                   </button>
+                            </h2>`
+                  }
+
                   let row = `
                         <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
-                                                ${item['name']}
-                                            </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+                                            ${button}
+                                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample" style="">
                                             <div class="accordion-body">
                                                 <div id="${submenuId}" class="navbar-nav">
 
@@ -232,12 +230,60 @@
 
                   item['sub_categoris'].forEach(function(item1,index1){
                       let row1 = `
-                            <a href="" class="nav-item nav-link">${item1['name']}</a>
+                            <a href="#" data-category="${item['slug']}" data-subcategory="${item1['slug']}" class="nav-item nav-link subcategory-link">${item1['name']}</a>
                       `
                       submenuBox.innerHTML += row1;
                   })
 
               });
+
+          }else{
+              let data = req.data.message;
+              if(typeof data === 'object'){
+                  for (let key in data) {
+                      errorToast(data[key]);
+                  }
+              }else{
+                  errorToast(data);
+              }
+          }
+      }
+
+      document.addEventListener('click', function (e){
+          if(e.target.classList.contains("category-link")){
+              e.preventDefault();
+              let category = e.target.getAttribute('data-category');
+              getproduct(category);
+          }
+      })
+
+      document.addEventListener('click', function(e){
+          if(e.target.classList.contains('subcategory-link')){
+              e.preventDefault();
+              let category = e.target.getAttribute('data-category');
+              let subcategory = e.target.getAttribute('data-subcategory');
+              getproduct(category, subcategory);
+          }
+      })
+
+
+      getBrand();
+      async function getBrand(){
+          let req = await axios.get('/get/shopbrand');
+          if(req.status === 200 && req.data['status'] === 'success'){
+              let brandBox = document.getElementById('brandBox')
+              req.data.data.forEach(function(item,index){
+                  let row = `
+                      <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="${item['id']}" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        ${item['name']}
+                                    </label>
+                      </div>
+                  `
+                  brandBox.innerHTML += row;
+
+              })
 
           }else{
               let data = req.data.message;
