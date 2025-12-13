@@ -17,33 +17,44 @@ class ShopController extends Controller
     }
 
     public function getProduct(Request $request, $categorySlug = null, $subCategorySlug = null){
+
         $products = Product::where('status','active');
 
 
         //applyed fillter for category
         if(!empty($categorySlug)){
             $category = Category::where('slug', $categorySlug)->first();
-            if($category != null){
-                $products = $products->where('category_id', $category->id);
+            if($category){
+                $products->where('category_id', $category->id);
+                if(!empty($subCategorySlug)){
+                    $subCategory = SubCategory::where('slug', $subCategorySlug)->first();
+                    if($subCategory){
+                        $products->where('sub_category_id', $subCategory->id);
+                    }
+                }
             }
         }
 
-        //for sabcategory for category
-        if(!empty($subCategorySlug)){
-            $subCategory = SubCategory::where('slug', $subCategorySlug)->first();
-            if($subCategory != null){
-                $products = $products->where('sub_category_id', $subCategory->id);
-            }
-        }
+//        //for sabcategory for category
+//        if(!empty($subCategorySlug)){
+//            $subCategory = SubCategory::where('slug', $subCategorySlug)->first();
+//            if($subCategory != null){
+//                $products->where('sub_category_id', $subCategory->id);
+//            }
+//        }
 
         $products =$products->orderBy('id','desc')->with('images')->get();
 
-        if($products->isNotEmpty()){
-            return response()->json([
-                'status' => 'success',
-                'data' => $products
-            ],200);
-        }
+//        if($products->isNotEmpty()){
+//            return response()->json([
+//                'status' => 'success',
+//                'data' => $products
+//            ],200);
+//        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $products
+        ],200);
     }
 
     public function getCategory(){

@@ -135,19 +135,18 @@
           let url = '/get/shopproduct';
           if(category !== null && subcategory === null){
             url = `/get/shopproduct/${category}`;
-            console.log(url);
           }
           if(subcategory !== null && category !== null){
             url = `/get/shopproduct/${category}/${subcategory}`;
-              console.log(url);
           }
 
           showLoader();
-          let req = await axios.get(`${url}`);
+          let req = await axios.get(url);
           hideLoader();
 
           if(req.status === 200 && req.data['status'] === 'success'){
               let productBox = document.getElementById('productBox');
+              productBox.innerHTML = '';
             req.data.data.forEach(function(item, index){
                 let row = `
                     <div class="col-md-4">
@@ -262,6 +261,7 @@
               e.preventDefault();
               let category = e.target.getAttribute('data-category');
               let subcategory = e.target.getAttribute('data-subcategory');
+              console.log(category, subcategory);
               getproduct(category, subcategory);
           }
       })
