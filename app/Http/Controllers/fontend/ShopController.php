@@ -21,7 +21,7 @@ class ShopController extends Controller
         $products = Product::where('status','active');
 
 
-        //applyed fillter for category
+        //applied fillter for category
         if(!empty($categorySlug)){
             $category = Category::where('slug', $categorySlug)->first();
             if($category){
@@ -35,25 +35,21 @@ class ShopController extends Controller
             }
         }
 
-//        //for sabcategory for category
-//        if(!empty($subCategorySlug)){
-//            $subCategory = SubCategory::where('slug', $subCategorySlug)->first();
-//            if($subCategory != null){
-//                $products->where('sub_category_id', $subCategory->id);
-//            }
-//        }
+        //applied fillter for brand
+        if($request->has('brands')){
+            $brands = $request->brands;
+            if (!is_array($brands)){
+                $brands = explode(',', $brands);
+            }
+            $products->whereIn('brand_id', $brands);
+        }
 
         $products =$products->orderBy('id','desc')->with('images')->get();
 
-//        if($products->isNotEmpty()){
-//            return response()->json([
-//                'status' => 'success',
-//                'data' => $products
-//            ],200);
-//        }
+
         return response()->json([
             'status' => 'success',
-            'data' => $products
+            'data' => $products,
         ],200);
     }
 

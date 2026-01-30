@@ -129,15 +129,25 @@
 @section('script')
     <script>
 
+      let SelectedBrands = [];
+      console.log(SelectedBrands);
+      let currentCategory = null;
+      let currentSubCategory = null;
 
       getproduct();
       async function getproduct(category = null, subcategory = null){
+          console.log(category);
+          console.log(subcategory);
           let url = '/get/shopproduct';
           if(category !== null && subcategory === null){
             url = `/get/shopproduct/${category}`;
           }
           if(subcategory !== null && category !== null){
             url = `/get/shopproduct/${category}/${subcategory}`;
+          }
+
+          if(SelectedBrands.length > 0){
+              url += `?brands=${SelectedBrands.join(',')}`;
           }
 
           showLoader();
@@ -199,7 +209,6 @@
               req.data.data.forEach(function(item, index){
                   let submenuId = `submenuBox${index}`;
                   let button = '';
-                  console.log(item);
                   if(item['sub_categoris'].length === 0){
                       button = `<a href="#" data-category="${item['slug']}" class="nav-item nav-link category-link">${item['name']}</a>`
                   }else{
@@ -251,18 +260,17 @@
       document.addEventListener('click', function (e){
           if(e.target.classList.contains("category-link")){
               e.preventDefault();
-              let category = e.target.getAttribute('data-category');
-              getproduct(category);
+              currentCategory = e.target.getAttribute('data-category');
+              getproduct(currentCategory);
           }
       })
 
       document.addEventListener('click', function(e){
           if(e.target.classList.contains('subcategory-link')){
               e.preventDefault();
-              let category = e.target.getAttribute('data-category');
-              let subcategory = e.target.getAttribute('data-subcategory');
-              console.log(category, subcategory);
-              getproduct(category, subcategory);
+              currentCategory = e.target.getAttribute('data-category');
+              currentSubCategory = e.target.getAttribute('data-subcategory');
+              getproduct(currentCategory, currentSubCategory);
           }
       })
 
@@ -275,7 +283,7 @@
               req.data.data.forEach(function(item,index){
                   let row = `
                       <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="${item['id']}" id="flexCheckDefault">
+                                    <input class="form-check-input brand-filter" type="checkbox" value="${item['id']}" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         ${item['name']}
                                     </label>
@@ -296,6 +304,24 @@
               }
           }
       }
+
+      //add change even on chackbox button for brand fillter function
+      document.addEventListener('change', function(e){
+          if(e.target.classList.contains('brand-filter')){
+              let brandId = e.target.value;
+
+              if(e.target.checked){
+                  SelectedBrands.push(brandId);
+              }else{
+                  SelectedBrands = SelectedBrands.filter(function (id) {
+                      return id !== brandId;
+                  })
+              }
+
+              getproduct(currentCategory, currentSubCategory)
+          }
+      })
+
 
     </script>
 @endsection
