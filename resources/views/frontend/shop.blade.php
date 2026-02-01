@@ -46,32 +46,7 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-body">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        $0-$100
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        $100-$200
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        $200-$500
-                                    </label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        $500+
-                                    </label>
-                                </div>
-                            </div>
+                            <input type="text" class="js-range-slider" name="my_range" value="" />
                         </div>
                     </div>
 
@@ -129,15 +104,29 @@
 @section('script')
     <script>
 
+        //ion range slider plaging code for price input
+        $(".js-range-slider").ionRangeSlider({
+            type: "double",
+            min: 0,
+            max: 100000,
+            from: 200,
+            to: 500,
+            prefix: "৳",
+            skin : "round",
+
+        });
+
+        //get value form ion range plaging
+        let price = $(".js-range-slider").data('ionRangeSlider');
+        console.log(price.result.to);
+
+
       let SelectedBrands = [];
-      console.log(SelectedBrands);
       let currentCategory = null;
       let currentSubCategory = null;
 
       getproduct();
       async function getproduct(category = null, subcategory = null){
-          console.log(category);
-          console.log(subcategory);
           let url = '/get/shopproduct';
           if(category !== null && subcategory === null){
             url = `/get/shopproduct/${category}`;
@@ -149,10 +138,15 @@
           if(SelectedBrands.length > 0){
               url += `?brands=${SelectedBrands.join(',')}`;
           }
+          if(price.result.to > 499){
+              url += '?price_min='+price.result.from;
+              url += '?price_max='+price.result.to;
+          }
 
           showLoader();
           let req = await axios.get(url);
           hideLoader();
+          console.log(req.data['data']);
 
           if(req.status === 200 && req.data['status'] === 'success'){
               let productBox = document.getElementById('productBox');

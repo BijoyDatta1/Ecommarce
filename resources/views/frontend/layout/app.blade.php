@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('fontendAsset/css/slick-theme.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('fontendAsset/css/video-js.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('fontendAsset/css/style.css?v=')}}<?php echo rand(111,999); ?>" />
+    <link rel="stylesheet" type="text/css" href="{{asset('fontendAsset/css/ion.rangeSlider.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('fontendAsset/css/custom.css')}}"/>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -168,6 +170,7 @@
 <script src="{{'fontendAsset/js/bootstrap.bundle.5.1.3.min.js'}}"></script>
 <script src="{{'fontendAsset/js/instantpages.5.1.0.min.js'}}"></script>
 <script src="{{'fontendAsset/js/lazyload.17.6.0.min.js'}}"></script>
+<script src="{{'fontendAsset/js/ion.rangeSlider.min.js'}}"></script>
 <script src="{{'fontendAsset/js/slick.min.js'}}"></script>
 <script src="{{'fontendAsset/js/custom.js'}}"></script>
 

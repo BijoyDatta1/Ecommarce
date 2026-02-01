@@ -19,6 +19,9 @@ class ShopController extends Controller
     public function getProduct(Request $request, $categorySlug = null, $subCategorySlug = null){
 
         $products = Product::where('status','active');
+        return response()->json([
+            'data' => $request->all()
+        ]);
 
 
         //applied fillter for category
@@ -43,6 +46,12 @@ class ShopController extends Controller
             }
             $products->whereIn('brand_id', $brands);
         }
+
+//        //applyed fillter for price
+//        if($request->has('subcategories')){
+//
+//        }
+
 
         $products =$products->orderBy('id','desc')->with('images')->get();
 
