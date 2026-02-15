@@ -19,10 +19,10 @@ class ShopController extends Controller
     public function getProduct(Request $request, $categorySlug = null, $subCategorySlug = null){
 
         $products = Product::where('status','active');
-        return response()->json([
-            'data' => $request->all()
-        ]);
-
+//
+//        return response()->json([
+//            'data' => $request->all()
+//        ]);
 
         //applied fillter for category
         if(!empty($categorySlug)){
@@ -47,10 +47,16 @@ class ShopController extends Controller
             $products->whereIn('brand_id', $brands);
         }
 
-//        //applyed fillter for price
-//        if($request->has('subcategories')){
-//
-//        }
+        //applyed fillter for price
+        if($request->filled('price_min') && $request->filled('price_max')){
+            if ($request->price_max >= 2 && $request->price_max < 99999){
+                $products->whereBetween('price', [$request->price_min, $request->price_max]);
+            }elseif($request->price_max >= 100000){
+                $products->where('price', '>=', $request->price_min);
+            }
+        }
+
+
 
 
         $products =$products->orderBy('id','desc')->with('images')->get();

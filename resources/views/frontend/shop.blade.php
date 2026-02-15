@@ -109,16 +109,13 @@
             type: "double",
             min: 0,
             max: 100000,
-            from: 200,
-            to: 500,
+            from: 1,
+            to: 1,
             prefix: "৳",
             skin : "round",
 
         });
 
-        //get value form ion range plaging
-        let price = $(".js-range-slider").data('ionRangeSlider');
-        console.log(price.result.to);
 
 
       let SelectedBrands = [];
@@ -135,12 +132,22 @@
             url = `/get/shopproduct/${category}/${subcategory}`;
           }
 
+          let params = [];
+
           if(SelectedBrands.length > 0){
-              url += `?brands=${SelectedBrands.join(',')}`;
+              params.push(`brands=${SelectedBrands.join(',')}`);
           }
-          if(price.result.to > 499){
-              url += '?price_min='+price.result.from;
-              url += '?price_max='+price.result.to;
+
+          //get value form ion range plaging
+          let price = $(".js-range-slider").data('ionRangeSlider');
+          let minPrice = price.result.from;
+          let maxPrice = price.result.to;
+
+          params.push(`price_min= ${minPrice}`);
+          params.push(`price_max= ${maxPrice}`);
+
+          if(params.length > 0){
+              url += '?' + params.join("&");
           }
 
           showLoader();
@@ -314,7 +321,13 @@
 
               getproduct(currentCategory, currentSubCategory)
           }
-      })
+      });
+
+      //on change event for price
+        $(".js-range-slider").on("change", function () {
+            getproduct(currentCategory, currentSubCategory);
+        });
+
 
 
     </script>
