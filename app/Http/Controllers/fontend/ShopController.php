@@ -56,7 +56,16 @@ class ShopController extends Controller
             }
         }
 
-
+        //applyed fillter for short
+        if ($request->filled('short')){
+            if ($request->short == "latest"){
+                $products->orderBy('id', 'desc');
+            }elseif ($request->short == "price_desc"){
+                $products->orderBy('price', 'desc');
+            }elseif ($request->short == "price_asc"){
+                $products->orderBy('price', 'asc');
+            }
+        }
 
 
         $products =$products->orderBy('id','desc')->with('images')->get();

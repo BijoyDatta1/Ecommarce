@@ -58,14 +58,11 @@
                             <div class="col-12 pb-1">
                                 <div class="d-flex align-items-center justify-content-end mb-4">
                                     <div class="ml-2">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Sorting</button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#">Latest</a>
-                                                <a class="dropdown-item" href="#">Price High</a>
-                                                <a class="dropdown-item" href="#">Price Low</a>
-                                            </div>
-                                        </div>
+                                        <select id="short" name="short" class="form-select" aria-label="Default select example">
+                                            <option value="latest">Latest</option>
+                                            <option value="price_desc">Price High</option>
+                                            <option value="price_asc">Price Low</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +106,7 @@
             type: "double",
             min: 0,
             max: 100000,
+            max_postfix:"+",
             from: 1,
             to: 1,
             prefix: "৳",
@@ -117,10 +115,10 @@
         });
 
 
-
       let SelectedBrands = [];
       let currentCategory = null;
       let currentSubCategory = null;
+      let currentShort = null;
 
       getproduct();
       async function getproduct(category = null, subcategory = null){
@@ -134,17 +132,24 @@
 
           let params = [];
 
+          //for brand
           if(SelectedBrands.length > 0){
               params.push(`brands=${SelectedBrands.join(',')}`);
           }
 
-          //get value form ion range plaging
+          //get value form ion range plaging and push the value on params array for price slider
           let price = $(".js-range-slider").data('ionRangeSlider');
           let minPrice = price.result.from;
           let maxPrice = price.result.to;
 
           params.push(`price_min= ${minPrice}`);
           params.push(`price_max= ${maxPrice}`);
+
+          //push the short value in params array
+          if(currentShort !== null){
+              params.push(`short=${currentShort}`);
+          }
+          console.log(params);
 
           if(params.length > 0){
               url += '?' + params.join("&");
@@ -323,10 +328,18 @@
           }
       });
 
-      //on change event for price
+      //on change event for price jqurey style
         $(".js-range-slider").on("change", function () {
             getproduct(currentCategory, currentSubCategory);
         });
+
+        //on change envent for shorting
+
+        let short = document.getElementById('short');
+        short.addEventListener('change', function (e){
+            currentShort = this.value;
+            getproduct(currentCategory, currentSubCategory);
+        })
 
 
 
