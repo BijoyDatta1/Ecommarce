@@ -114,14 +114,15 @@
 
         });
 
-
+        //global variable section
       let SelectedBrands = [];
       let currentCategory = null;
       let currentSubCategory = null;
       let currentShort = null;
+      let currentPage = 1;
 
       getproduct();
-      async function getproduct(category = null, subcategory = null){
+      async function getproduct(category = null, subcategory = null, page = 1){
           let url = '/get/shopproduct';
           if(category !== null && subcategory === null){
             url = `/get/shopproduct/${category}`;
@@ -130,6 +131,7 @@
             url = `/get/shopproduct/${category}/${subcategory}`;
           }
 
+          // create a array for url
           let params = [];
 
           //for brand
@@ -141,14 +143,18 @@
           let price = $(".js-range-slider").data('ionRangeSlider');
           let minPrice = price.result.from;
           let maxPrice = price.result.to;
+          params.push(`price_min=${minPrice}`);
+          params.push(`price_max=${maxPrice}`);
 
-          params.push(`price_min= ${minPrice}`);
-          params.push(`price_max= ${maxPrice}`);
 
-          //push the short value in params array
+          //push the sorting value in params array for sorting filter
           if(currentShort !== null){
               params.push(`short=${currentShort}`);
           }
+
+          //push current page on page veriable for pagination and update the currentPage variable
+          currentPage = page;
+          params.push(`page=${currentPage}`);
           console.log(params);
 
           if(params.length > 0){
@@ -158,7 +164,7 @@
           showLoader();
           let req = await axios.get(url);
           hideLoader();
-          console.log(req.data['data']);
+          console.log(req.data);
 
           if(req.status === 200 && req.data['status'] === 'success'){
               let productBox = document.getElementById('productBox');
@@ -188,7 +194,9 @@
                             </div>
                 `
                productBox.innerHTML += row;
-            });
+            }
+
+            );
 
           }else{
               let data = req.data.message;
@@ -204,8 +212,8 @@
       }
 
 
+      // get all category/subcategory and render it on html
       getCategory();
-
       async function getCategory(){
           let req = await axios.get('/get/shopcategory');
 
@@ -263,14 +271,16 @@
           }
       }
 
+      //added click event on category
       document.addEventListener('click', function (e){
           if(e.target.classList.contains("category-link")){
               e.preventDefault();
               currentCategory = e.target.getAttribute('data-category');
               getproduct(currentCategory);
           }
-      })
+      });
 
+      //added click event on subcategory
       document.addEventListener('click', function(e){
           if(e.target.classList.contains('subcategory-link')){
               e.preventDefault();
@@ -278,9 +288,9 @@
               currentSubCategory = e.target.getAttribute('data-subcategory');
               getproduct(currentCategory, currentSubCategory);
           }
-      })
+      });
 
-
+      // get brand and render on html
       getBrand();
       async function getBrand(){
           let req = await axios.get('/get/shopbrand');
@@ -311,7 +321,7 @@
           }
       }
 
-      //add change even on chackbox button for brand fillter function
+      //add change even on chackbox/brandName button for brand fillter function
       document.addEventListener('change', function(e){
           if(e.target.classList.contains('brand-filter')){
               let brandId = e.target.value;
@@ -334,13 +344,11 @@
         });
 
         //on change envent for shorting
-
         let short = document.getElementById('short');
         short.addEventListener('change', function (e){
             currentShort = this.value;
             getproduct(currentCategory, currentSubCategory);
         })
-
 
 
     </script>

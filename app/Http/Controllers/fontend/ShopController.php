@@ -68,12 +68,18 @@ class ShopController extends Controller
         }
 
 
-        $products =$products->orderBy('id','desc')->with('images')->get();
+        $products =$products->orderBy('id','desc')->with('images')->paginate(3);
 
 
         return response()->json([
             'status' => 'success',
             'data' => $products,
+            'pagination' =>[
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'per_page' => $products->perPage(),
+                'total' => $products->total(),
+            ]
         ],200);
     }
 
