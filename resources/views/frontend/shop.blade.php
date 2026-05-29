@@ -76,16 +76,8 @@
 
                             <div class="col-md-12 pt-5">
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
+                                    <ul id="paginationBox" class="pagination justify-content-end">
+                                        
                                     </ul>
                                 </nav>
                             </div>
@@ -108,7 +100,7 @@
             max: 100000,
             max_postfix:"+",
             from: 1,
-            to: 1,
+            to: 70000,
             prefix: "৳",
             skin : "round",
 
@@ -155,7 +147,6 @@
           //push current page on page veriable for pagination and update the currentPage variable
           currentPage = page;
           params.push(`page=${currentPage}`);
-          console.log(params);
 
           if(params.length > 0){
               url += '?' + params.join("&");
@@ -164,12 +155,12 @@
           showLoader();
           let req = await axios.get(url);
           hideLoader();
-          console.log(req.data);
 
           if(req.status === 200 && req.data['status'] === 'success'){
               let productBox = document.getElementById('productBox');
               productBox.innerHTML = '';
-            req.data.data.forEach(function(item, index){
+            
+            req.data.data.data.forEach(function(item, index){
                 let row = `
                     <div class="col-md-4">
                                 <div class="card product-card">
@@ -195,8 +186,41 @@
                 `
                productBox.innerHTML += row;
             }
-
             );
+
+        //pagination code start form here
+            let pagination = req.data.pagination;
+            let paginationBox = document.getElementById('paginationBox');
+            paginationBox.innerHTML = '';
+
+            let preDisable = "";
+            if(pagination.current_page == 1){
+                preDisable = "disabled";
+            }
+            paginationBox.innerHTML += `<li class="page-item ${preDisable}">
+            <a class="page-link pagination-link" data-page=${pagination.current_page - 1} href="#">Previous</a>
+            </li>`
+            
+            for(let i = 1; i <= pagination.last_page; i++){
+
+                let active = '';
+
+                if(pagination.current_page == i){
+                    active = 'active'; 
+                }
+                paginationBox.innerHTML += `<li class="page-item ${active}">
+                    <a class="page-link pagination-link" data-page="${i}" href="#">${i}</a>
+                    </li>`
+            }  
+
+            let nextDisable = "";
+            if(pagination.current_page == pagination.last_page){
+                nextDisable = "disabled";
+            }
+
+            paginationBox.innerHTML += `<li class="page-item ${nextDisable}">
+            <a class="page-link pagination-link" data-page="${pagination.current_page + 1}" href="#">Next</a>
+            </li>`
 
           }else{
               let data = req.data.message;
@@ -270,6 +294,15 @@
               }
           }
       }
+      //added click event for pagination
+      document.addEventListener('click',function(e){
+        if(e.target.classList.contains("pagination-link")){
+            e.preventDefault();
+            let page = e.target.getAttribute('data-page');
+            getproduct(currentCategory, currentSubCategory, page);
+
+        }
+      });
 
       //added click event on category
       document.addEventListener('click', function (e){

@@ -65,10 +65,12 @@ class ShopController extends Controller
             }elseif ($request->short == "price_asc"){
                 $products->orderBy('price', 'asc');
             }
+        }else{
+            $products->orderBy('id', 'desc');
         }
 
 
-        $products =$products->orderBy('id','desc')->with('images')->paginate(3);
+        $products =$products->with('images')->paginate(6);
 
 
         return response()->json([
@@ -102,4 +104,5 @@ class ShopController extends Controller
             ],200);
         }
     }
+
 }

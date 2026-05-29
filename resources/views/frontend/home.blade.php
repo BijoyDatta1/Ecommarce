@@ -183,7 +183,7 @@
             let req = await axios.get('/featured/product')
 
             if(req.status === 200 && req.data['status'] === 'success'){
-            console.log(req.data.products);
+            // console.log(req.data.products);
             let featuredBox = document.getElementById('featuredBox');
             req.data.products.forEach(function (item, index){
                 let row = `
