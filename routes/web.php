@@ -8,6 +8,7 @@ use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\dashboard\SubCategoryController;
 use App\Http\Controllers\fontend\HomeController;
 use App\Http\Controllers\fontend\ShopController;
+use App\Http\Controllers\fontend\SingleProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,11 +31,14 @@ Route::get('home/all/category',[HomeController::class,'getMenu']);
 Route::get('/featured/product',[HomeController::class,'featuredProduct']);
 Route::get('/latest/product',[HomeController::class,'latestProduct']);
 
-
+//shop pages
 Route::get('/shoppage',[ShopController::class,'index']);
 Route::get('/get/shopproduct/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'getProduct']);
 Route::get('/get/shopcategory',[ShopController::class,'getCategory']);
 Route::get('/get/shopbrand',[ShopController::class,'getBrand']);
+
+//product pages
+Route::get('/productpage/{id?}/{slug?}',[SingleProductController::class,'index']);
 
 //authentication page
 Route::get('/loginpage',[AuthController::class,'loginPage']);

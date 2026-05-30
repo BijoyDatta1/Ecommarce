@@ -186,11 +186,12 @@
             // console.log(req.data.products);
             let featuredBox = document.getElementById('featuredBox');
             req.data.products.forEach(function (item, index){
+
                 let row = `
                     <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
+                            <a href="#" data-id="${item['id']}" data-slug="${item['slug']}" class="featured product-img"><img class="card-img-top" style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
 
                             <div class="product-action">
@@ -225,6 +226,16 @@
             }
 
         }
+
+        document.addEventListener('click',function(e){
+            let link = e.target.closest('.featured');
+            if(link){
+                e.preventDefault();
+                let id = link.getAttribute('data-id');
+                let slug = link.getAttribute('data-slug');
+                window.location.href = `/productpage/${id}/${slug}`
+            }
+        })
 
         latestProduct();
 
