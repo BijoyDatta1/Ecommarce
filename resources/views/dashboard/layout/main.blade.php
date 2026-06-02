@@ -16,6 +16,7 @@
     <!-- plagin style -->
     <link rel="stylesheet" href="{{asset('dashboardAsset/plugins/summernote/summernote.css')}}">
     <link rel="stylesheet" href="{{asset('dashboardAsset/plugins/dropzone/dropzone.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboardAsset/plugins/select2/css/select2.min.css')}}">
 
     {{--    helper css--}}
     <link rel="stylesheet" href="{{asset('helperAsset/loader.css')}}">
@@ -102,6 +103,8 @@
 <!-- Plagin -->
 <script src="{{asset('dashboardAsset/plugins/summernote/summernote.js')}}"></script>
 <script src="{{asset('dashboardAsset/plugins/dropzone/dropzone.js')}}"></script>
+<script src="{{asset('dashboardAsset/plugins/select2/js/select2.full.min.js')}}"></script>
+
 
 {{--helper Js--}}
 <script src="{{asset('helperAsset/axios.min.js')}}"></script>

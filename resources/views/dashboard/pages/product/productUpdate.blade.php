@@ -37,6 +37,18 @@
                                             <textarea  name="description" id="description" cols="30" rows="10" class="summernote" placeholder="Description">{{$product->description}}</textarea>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="short_driscription">Short Driscription</label>
+                                            <textarea  name="short_driscription" id="short_driscription" cols="30" rows="10" class="summernote" placeholder="Short Driscription">{{$product->short_driscription}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="shiping_detail">Shiping Details</label>
+                                            <textarea  name="shiping_detail" id="shiping_detail" cols="30" rows="10" class="summernote" placeholder="Shiping Details">{{$product->shiping_details}}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -102,6 +114,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h2 class="h4 mb-3">Related Product</h2>
+                                <div class="mb-3">
+                                    <select multiple="multiple" name="related_product[]" id="related_product" class="form-control related_product">
+                                            @if (!empty($relatedProduct))
+                                                @foreach ($relatedProduct as $Product)
+                                                    '<option selected value="{{$Product->id}}">{{$Product->name}}</option>';
+                                                @endforeach
+                                            @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-3">
@@ -128,7 +154,7 @@
                                     <label for="category">Category</label>
                                     <input id="activeCategoryId" type="hidden" value="{{$product->category_id}}">
                                     <select name="category" id="category" class="form-control">
-                                        <option value="">Select Your Category</option>
+                                        {{-- <option value="">Select Your Category</option> --}}
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -204,6 +230,24 @@
 @section('script')
     <script>
 
+        //select to js plagin for related product select
+        $('#related_product').select2({
+            ajax:{
+                url:'{{url("/select/product")}}',
+                datatype: 'json',
+                tags: true,
+                multiple: true,
+                minimumInputLength:3,
+                processResults: function (data){
+                    return {
+                        results: data.tags
+                    };
+                }
+            }
+        });
+
+        let related_products = $('#related_product').val();
+        console.log(related_products);
 
         //summarnote js plagin
         $(document).ready(function() {
@@ -356,6 +400,9 @@
             let id = "{{$product->id}}";
             let name = document.getElementById('title').value;
             let description = document.getElementById('description').value;
+            let short_decription = document.getElementById('short_driscription').value;
+            let shiping_details = document.getElementById('shiping_detail').value;
+            let related_products = $('#related_product').val();
             let price = document.getElementById('price').value;
             let compare_price = document.getElementById('compare_price').value;
             let category_id = document.getElementById('category').value;
@@ -373,6 +420,8 @@
             formData.append('id',id);
             formData.append('name',name);
             formData.append('description',description);
+            formData.append('short_decription',short_decription);
+            formData.append('shiping_details',shiping_details);
             formData.append('price',price);
             formData.append('compare_price',compare_price);
             formData.append('category_id',category_id);
@@ -393,6 +442,10 @@
                     formData.append('images[]',file);
                 }
             })
+
+            related_products.forEach(function(id){
+                formData.append('related_product[]', id);
+            });
 
             showLoader();
             let req = await axios.post('/update/product',formData,{

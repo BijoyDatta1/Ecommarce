@@ -77,7 +77,7 @@
                             <div class="col-md-12 pt-5">
                                 <nav aria-label="Page navigation example">
                                     <ul id="paginationBox" class="pagination justify-content-end">
-                                        
+
                                     </ul>
                                 </nav>
                             </div>
@@ -159,13 +159,13 @@
           if(req.status === 200 && req.data['status'] === 'success'){
               let productBox = document.getElementById('productBox');
               productBox.innerHTML = '';
-            
+
             req.data.data.data.forEach(function(item, index){
                 let row = `
                     <div class="col-md-4">
                                 <div class="card product-card">
                                     <div class="product-image position-relative">
-                                        <a href="" class="product-img"><img class="card-img-top"  style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
+                                        <a href="#" data-id="${item['id']}" data-slug="${item['slug']}" class="product-img shopProduct"><img class="card-img-top"  style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
                                         <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
 
                                         <div class="product-action">
@@ -200,18 +200,18 @@
             paginationBox.innerHTML += `<li class="page-item ${preDisable}">
             <a class="page-link pagination-link" data-page=${pagination.current_page - 1} href="#">Previous</a>
             </li>`
-            
+
             for(let i = 1; i <= pagination.last_page; i++){
 
                 let active = '';
 
                 if(pagination.current_page == i){
-                    active = 'active'; 
+                    active = 'active';
                 }
                 paginationBox.innerHTML += `<li class="page-item ${active}">
                     <a class="page-link pagination-link" data-page="${i}" href="#">${i}</a>
                     </li>`
-            }  
+            }
 
             let nextDisable = "";
             if(pagination.current_page == pagination.last_page){
@@ -234,6 +234,17 @@
           }
 
       }
+
+      //go to shoppage to product details page with data by clicking
+      document.addEventListener('click',function(e){
+            let link = e.target.closest('.shopProduct');
+            if(link){
+                e.preventDefault();
+                let id = link.getAttribute('data-id');
+                let slug = link.getAttribute('data-slug');
+                window.location.href = `/productpage/${id}/${slug}`
+            }
+        })
 
 
       // get all category/subcategory and render it on html

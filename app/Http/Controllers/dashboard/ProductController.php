@@ -65,7 +65,13 @@ class ProductController extends Controller
         $product = Product::where('id', $id)->first();
         if ($product) {
             $images = Image::where('product_id', $id)->get();
-            return view('dashboard.pages.product.productUpdate',compact('product','images'));
+
+            //finding the related product ID
+            $relatedId = json_decode($product->related_products,true);
+            $relatedProduct = Product::whereIn('id', $relatedId)->get();
+
+            //send the data fontend
+            return view('dashboard.pages.product.productUpdate',compact('product','images','relatedProduct'));
         }
     }
 
@@ -92,8 +98,19 @@ class ProductController extends Controller
     public function productCreatePage(){
         return view('dashboard.pages.product.productCreate');
     }
-    public function productUpdatePage(){
+    public function selectProduct(Request $request){
+        $products = Product::where('name', 'like', '%'.$request->term.'%')->get();
+        $tempProduct = [];
+        if($products != null){
+            foreach($products as $product){
+                $tempProduct[] = array('id' => $product->id, 'text' => $product->name);
+            }
+        }
 
+        return response()->json([
+            'status' => 'success',
+            'tags' => $tempProduct
+        ]);
     }
 
     public function store(Request $request){
@@ -125,6 +142,8 @@ class ProductController extends Controller
             $product = new Product();
             $product->name = $request->name;
             $product->description = $request->description;
+            $product->short_driscription = $request->short_decription;
+            $product->shiping_details = $request->shiping_details;
             $product->price = $request->price;
             $product->compare_price = $request->compare_price;
             $product->category_id = $request->category_id;
@@ -207,6 +226,9 @@ class ProductController extends Controller
         try {
             $product->name = $request->name;
             $product->description = $request->description;
+            $product->short_driscription = $request->short_decription;
+            $product->shiping_details = $request->shiping_details;
+            $product->related_products = $request->related_product;
             $product->price = $request->price;
             $product->compare_price = $request->compare_price;
             $product->category_id = $request->category_id;

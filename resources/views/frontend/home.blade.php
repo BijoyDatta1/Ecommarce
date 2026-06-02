@@ -227,6 +227,7 @@
 
         }
 
+        //go to feature product to product page with data by clicking
         document.addEventListener('click',function(e){
             let link = e.target.closest('.featured');
             if(link){
@@ -249,7 +250,7 @@
                     <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
+                            <a href="" data-id="${item['id']}" data-slug="${item['slug']}"  class="product-img latest"><img class="card-img-top" style="height: 350px" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
 
                             <div class="product-action">
@@ -283,6 +284,17 @@
                 }
             }
         }
+
+        //go to latest product to product page with product data by clicking
+        document.addEventListener('click',function(e){
+            let link = e.target.closest('.latest');
+            if(link){
+                e.preventDefault();
+                let id = link.getAttribute('data-id');
+                let slug = link.getAttribute('data-slug');
+                window.location.href = `/productpage/${id}/${slug}`
+            }
+        })
 
 
 

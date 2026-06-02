@@ -37,6 +37,18 @@
                                             <textarea name="description" id="description" cols="30" rows="10" class="summernote" placeholder="Description"></textarea>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="short_driscription">Short Driscription</label>
+                                            <textarea  name="short_driscription" id="short_driscription" cols="30" rows="10" class="summernote" placeholder="Short Driscription"> </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="shiping_detail">Shiping Details</label>
+                                            <textarea  name="shiping_detail" id="shiping_detail" cols="30" rows="10" class="summernote" placeholder="Shiping Details"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -302,6 +314,8 @@
         async function createProduct(){
             let name = document.getElementById('title').value;
             let description = document.getElementById('description').value;
+            let short_decription = document.getElementById('short_driscription').value;
+            let shiping_details = document.getElementById('shiping_detail').value;
             let price = document.getElementById('price').value;
             let compare_price = document.getElementById('compare_price').value;
             let category_id = document.getElementById('category').value;
@@ -318,6 +332,8 @@
             let formData = new FormData();
             formData.append('name',name);
             formData.append('description',description);
+            formData.append('short_decription',short_decription);
+            formData.append('shiping_details',shiping_details);
             formData.append('price',price);
             formData.append('compare_price',compare_price);
             formData.append('category_id',category_id);

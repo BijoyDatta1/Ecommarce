@@ -102,6 +102,7 @@ Route::middleware('tokenVeryfy')->group(function(){
         Route::post('/delete/product',[ProductController::class,'deleteProduct']);
         Route::get('/update/product/{id}',[ProductController::class,'updateProductPage']);
         Route::post('/update/product',[ProductController::class,'updateProduct']);
+        Route::get('/select/product',[ProductController::class,'selectProduct']);
 
 
 

@@ -166,13 +166,13 @@
         </div>
     </div>
 </footer>
-<script src="{{'fontendAsset/js/jquery-3.6.0.min.js'}}"></script>
-<script src="{{'fontendAsset/js/bootstrap.bundle.5.1.3.min.js'}}"></script>
-<script src="{{'fontendAsset/js/instantpages.5.1.0.min.js'}}"></script>
-<script src="{{'fontendAsset/js/lazyload.17.6.0.min.js'}}"></script>
-<script src="{{'fontendAsset/js/ion.rangeSlider.min.js'}}"></script>
-<script src="{{'fontendAsset/js/slick.min.js'}}"></script>
-<script src="{{'fontendAsset/js/custom.js'}}"></script>
+<script src="{{asset('fontendAsset/js/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('fontendAsset/js/bootstrap.bundle.5.1.3.min.js')}}"></script>
+<script src="{{asset('fontendAsset/js/instantpages.5.1.0.min.js')}}"></script>
+<script src="{{asset('fontendAsset/js/lazyload.17.6.0.min.js')}}"></script>
+<script src="{{asset('fontendAsset/js/ion.rangeSlider.min.js')}}"></script>
+<script src="{{asset('fontendAsset/js/slick.min.js')}}"></script>
+<script src="{{asset('fontendAsset/js/custom.js')}}"></script>
 
 {{--helper Js--}}
 <script src="{{asset('helperAsset/axios.min.js')}}"></script>
