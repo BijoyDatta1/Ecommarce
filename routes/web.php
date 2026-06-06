@@ -39,6 +39,7 @@ Route::get('/get/shopbrand',[ShopController::class,'getBrand']);
 
 //product pages
 Route::get('/productpage/{id?}/{slug?}',[SingleProductController::class,'index']);
+Route::post('/relatedproduct',[SingleProductController::class,'getRelatedProduct']);
 
 //authentication page
 Route::get('/loginpage',[AuthController::class,'loginPage']);

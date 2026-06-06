@@ -91,26 +91,8 @@
                 <h2>Related Products</h2>
             </div>
             <div class="col-md-12">
-                <div id="related-products" class="carousel">
-                    <div class="card product-card">
-                        <div class=" product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
-                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+                <div id="related-products" class="carousel col-md-12">
 
-                            <div class="product-action">
-                                <a class="btn btn-dark" href="#">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="">Dummy Product Title</a>
-                            <div class="price mt-2">
-                                <span class="h5"><strong>$100</strong></span>
-                                <span class="h6 text-underline"><del>$120</del></span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -121,11 +103,41 @@
     <script>
         RelatedProduct();
         async function RelatedProduct() {
-            let ProductID =  document.getElementById('ProductID').value;
-            let req = await axios.get('/relatedproduct',{
-                id : id
+            let ProductID =  document.getElementById('ProductID').textContent;
+            let req = await axios.post('/relatedproduct',{
+                id : ProductID
             })
-            
+
+            let related_products_box = document.getElementById('related-products');
+            if(req.status === 200 && req.data['status'] === 'success'){
+                req.data.data.forEach(function(item,index){
+                    let row = `<div class="col-md-3"> <div class=" card product-card">
+                        <div class=" product-image position-relative">
+                            <a href="" class="product-img"><img class="card-img-top" src="{{asset('uploads/product')}}/${item['images'][0]['image_url']}" alt=""></a>
+                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+
+                            <div class="product-action">
+                                <a class="btn btn-dark" href="#">
+                                    <i class="fa fa-shopping-cart"></i> Add To Cart
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center mt-3">
+                            <a class="h6 link" href="">${item['name']}</a>
+                            <div class="price mt-2">
+                                <span class="h5"><strong>${item['price']}</strong></span>
+                                <span class="h6 text-underline"><del>${item['compare_price']}</del></span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>`
+
+                    related_products_box.innerHTML += row;
+                })
+                console.log(req.data);
+
+            }
+
         }
     </script>
 @endsection
